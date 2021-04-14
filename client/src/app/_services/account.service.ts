@@ -30,8 +30,10 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
+          console.log(user.username + "great")
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
+          return user;
         }
       })
     )
@@ -44,5 +46,6 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+
   }
 }
